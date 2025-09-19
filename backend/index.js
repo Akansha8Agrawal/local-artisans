@@ -1,21 +1,18 @@
-// backend/index.js
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const path = require("path");
-const axios = require("axios"); // for LibreTranslate
-
-require("dotenv").config(); // load .env
+const axios = require("axios");
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// 🔑 Firebase Admin SDK setup
-const serviceAccount = require(path.join(__dirname, "firebase-key.json"));
-
+// 🔑 Firebase Admin SDK (init only once)
 if (!admin.apps.length) {
+  const serviceAccount = require(path.join(__dirname, "firebase-key.json"));
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
@@ -32,23 +29,21 @@ app.get("/api/health", (req, res) => {
 });
 
 
-// -----------------------------
-// PRODUCTS
-// -----------------------------
+// ========================== PRODUCTS ==========================
 
-// ✅ Get all products
+// 📦 Get all products
 app.get("/api/products", async (req, res) => {
   try {
     const snapshot = await db.collection("products").orderBy("createdAt", "desc").get();
     const products = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     res.json(products);
   } catch (err) {
-    console.error("Error fetching products:", err);
+    console.error("❌ Error fetching products:", err);
     res.status(500).json({ error: "Failed to fetch products" });
   }
 });
 
-// ✅ Add new product (protected → only logged-in users can add)
+// ➕ Add product (protected)
 app.post("/api/products", verifyToken, async (req, res) => {
   const { name, price, artisan } = req.body;
   if (!name || !price || !artisan) {
@@ -65,17 +60,15 @@ app.post("/api/products", verifyToken, async (req, res) => {
     });
     res.json({ success: true, id: docRef.id });
   } catch (err) {
-    console.error("Add product error:", err);
+    console.error("❌ Add product error:", err);
     res.status(500).json({ error: "Failed to add product" });
   }
 });
 
 
-// -----------------------------
-// STORIES
-// -----------------------------
+// ========================== STORIES ==========================
 
-// ✅ Add story
+// ➕ Add story
 app.post("/api/stories", verifyToken, async (req, res) => {
   const { artisan, story } = req.body;
   if (!artisan || !story) {
@@ -91,31 +84,28 @@ app.post("/api/stories", verifyToken, async (req, res) => {
     });
     res.json({ success: true, id: docRef.id });
   } catch (err) {
-    console.error("Add story error:", err);
+    console.error("❌ Add story error:", err);
     res.status(500).json({ error: "Failed to add story" });
   }
 });
 
-// ✅ Get all stories
+// 📖 Get all stories
 app.get("/api/stories", async (req, res) => {
   try {
     const snapshot = await db.collection("stories").orderBy("createdAt", "desc").get();
     const stories = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     res.json(stories);
   } catch (err) {
-    console.error("Fetch stories error:", err);
+    console.error("❌ Fetch stories error:", err);
     res.status(500).json({ error: "Failed to fetch stories" });
   }
 });
 
 
-// -----------------------------
-// TRANSLATION
-// -----------------------------
+// ========================== TRANSLATION ==========================
 
 const USE_GOOGLE = process.env.USE_GOOGLE_TRANSLATE === "true";
 
-// Optional: if using Google Translate, GOOGLE_APPLICATION_CREDENTIALS should point to your service-account.json
 let googleTranslateClient = null;
 if (USE_GOOGLE) {
   try {
@@ -123,14 +113,12 @@ if (USE_GOOGLE) {
     googleTranslateClient = new Translate();
     console.log("✅ Using Google Cloud Translate");
   } catch (e) {
-    console.warn("⚠️ Google Translate client failed, falling back to LibreTranslate. Error:", e.message);
+    console.warn("⚠️ Google Translate client failed, using LibreTranslate. Error:", e.message);
   }
 }
 
-// small in-memory cache
 const translationCache = new Map();
 
-// Static supported languages
 const SUPPORTED_LANGS = [
   { code: "en", name: "English" },
   { code: "hi", name: "Hindi" },
@@ -140,12 +128,12 @@ const SUPPORTED_LANGS = [
   { code: "fr", name: "French" },
 ];
 
-// ✅ Get supported languages
+// 🌍 Supported languages
 app.get("/api/translate/langs", (req, res) => {
   res.json(SUPPORTED_LANGS);
 });
 
-// ✅ Translate endpoint
+// 🌍 Translate endpoint
 app.post("/api/translate", async (req, res) => {
   try {
     const { text, targetLang } = req.body;
@@ -159,39 +147,27 @@ app.post("/api/translate", async (req, res) => {
     }
 
     let translatedText;
-
     if (USE_GOOGLE && googleTranslateClient) {
-      // Google Cloud Translate
       const [translation] = await googleTranslateClient.translate(text, targetLang);
       translatedText = translation;
     } else {
-      // Fallback → LibreTranslate
       const resp = await axios.post(
         "https://libretranslate.de/translate",
-        {
-          q: text,
-          source: "auto",
-          target: targetLang,
-          format: "text",
-        },
+        { q: text, source: "auto", target: targetLang, format: "text" },
         { headers: { accept: "application/json" } }
       );
       translatedText = resp.data.translatedText;
     }
 
-    // cache result
     translationCache.set(cacheKey, translatedText);
-
     res.json({ translatedText });
   } catch (err) {
-    console.error("Translation error:", err?.message || err);
+    console.error("❌ Translation error:", err?.message || err);
     res.status(500).json({ error: "Translation failed", details: err?.message });
   }
 });
 
 
-// -----------------------------
-// START SERVER
-// -----------------------------
+// ========================== START SERVER ==========================
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`✅ Backend running at http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Backend running at http://localhost:${PORT}`));

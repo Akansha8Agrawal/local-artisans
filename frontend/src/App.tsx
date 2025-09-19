@@ -5,6 +5,7 @@ import StoriesList from "./components/StoriesList";
 import AddStory from "./components/AddStory";
 import Auth from "./components/Auth";
 import { fetchProducts, fetchStories } from "./apiHelpers";
+import { getAuth } from "firebase/auth"; // 🔑 for token test
 
 // 🔹 Types
 interface Product {
@@ -47,6 +48,21 @@ function App() {
     loadData();
   }, []);
 
+  // 🔑 Quick Firebase ID token tester
+  const handleGetToken = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert("⚠️ Please login first!");
+      return;
+    }
+
+    const token = await user.getIdToken();
+    console.log("🔥 Firebase ID Token:", token);
+    alert("Token copied in console. Use it in Postman header!");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 🔹 Header */}
@@ -69,6 +85,13 @@ function App() {
           <div className="flex flex-col sm:flex-row gap-6">
             <Auth />
           </div>
+          {/* 🧪 Debug: Get Firebase Token */}
+          <button
+            onClick={handleGetToken}
+            className="mt-4 px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-700"
+          >
+            🔑 Get My Firebase ID Token
+          </button>
         </section>
 
         {/* 🛍️ Products Section */}

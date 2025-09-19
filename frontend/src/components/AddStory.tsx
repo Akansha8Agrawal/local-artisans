@@ -10,7 +10,9 @@ interface AddStoryProps {
 const AddStory: React.FC<AddStoryProps> = ({ setStories }) => {
   const [story, setStory] = useState("");
   const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
 
+  // 👤 Track logged-in user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
       setUser(u);
@@ -20,15 +22,17 @@ const AddStory: React.FC<AddStoryProps> = ({ setStories }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!user) {
-      alert("Please log in first!");
+      alert("⚠️ Please log in first!");
       return;
     }
     if (!story.trim()) {
-      alert("Please enter a story.");
+      alert("⚠️ Please enter a story.");
       return;
     }
 
+    setLoading(true);
     try {
       const newStory = {
         artisan: user.displayName || user.email,
@@ -36,13 +40,17 @@ const AddStory: React.FC<AddStoryProps> = ({ setStories }) => {
         story,
       };
 
+      // ✅ Post with token
       const res = await postStoryWithAuth(newStory);
 
+      // ✅ Update UI instantly
       setStories((prev) => [...prev, { id: res.id, ...newStory }]);
       setStory("");
     } catch (err) {
       console.error("Error adding story:", err);
-      alert("Failed to add story. Please try again.");
+      alert("❌ Failed to add story. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,12 +61,16 @@ const AddStory: React.FC<AddStoryProps> = ({ setStories }) => {
         value={story}
         onChange={(e) => setStory(e.target.value)}
         className="border p-2 rounded w-full"
+        rows={4}
       />
       <button
         type="submit"
-        className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+        disabled={loading}
+        className={`px-4 py-2 rounded text-white ${
+          loading ? "bg-gray-400" : "bg-indigo-600 hover:bg-indigo-700"
+        }`}
       >
-        Add Story
+        {loading ? "Submitting..." : "Add Story"}
       </button>
     </form>
   );

@@ -1,9 +1,11 @@
 const admin = require("firebase-admin");
+const path = require("path");
 
-// initialize once in your backend (make sure you have serviceAccountKey.json)
+// initialize Firebase Admin once
 if (!admin.apps.length) {
+  const serviceAccount = require(path.join(__dirname, "../firebase-key.json"));
   admin.initializeApp({
-    credential: admin.credential.cert(require("../firebase-key.json")),
+    credential: admin.credential.cert(serviceAccount),
   });
 }
 
@@ -18,10 +20,10 @@ async function verifyToken(req, res, next) {
 
   try {
     const decoded = await admin.auth().verifyIdToken(token);
-    req.user = decoded; // save user info for later use
+    req.user = decoded; // user info (uid, email, etc.)
     next();
   } catch (error) {
-    console.error("Token verification failed:", error);
+    console.error("❌ Token verification failed:", error.message);
     res.status(403).json({ message: "Invalid or expired token" });
   }
 }

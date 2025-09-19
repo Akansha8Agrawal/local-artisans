@@ -1,45 +1,46 @@
-// Add near top of your backend/index.js
-const axios = require('axios');
+const express = require("express");
+const axios = require("axios");
 
-// --- Translation setup ---
-const USE_GOOGLE = process.env.USE_GOOGLE_TRANSLATE === 'true';
+const router = express.Router();
 
-// Optional: if using Google Translate, make sure GOOGLE_APPLICATION_CREDENTIALS points to your service-account json.
-// The google client will pick that up automatically.
+const USE_GOOGLE = process.env.USE_GOOGLE_TRANSLATE === "true";
+
 let googleTranslateClient = null;
 if (USE_GOOGLE) {
   try {
-    const {Translate} = require('@google-cloud/translate').v2;
-    googleTranslateClient = new Translate(); // uses GOOGLE_APPLICATION_CREDENTIALS
-    console.log('Using Google Cloud Translate');
+    const { Translate } = require("@google-cloud/translate").v2;
+    googleTranslateClient = new Translate();
+    console.log("✅ Using Google Cloud Translate");
   } catch (e) {
-    console.warn('Google Translate client failed to load, falling back to LibreTranslate. Error:', e.message);
+    console.warn("⚠️ Google Translate client failed, falling back to LibreTranslate.");
   }
 }
 
-// small in-memory cache for demo purposes
+// small cache
 const translationCache = new Map();
 
-// Static languages (you can expand)
+// Supported languages
 const SUPPORTED_LANGS = [
-  { code: 'en', name: 'English' },
-  { code: 'hi', name: 'Hindi' },
-  { code: 'bn', name: 'Bengali' },
-  { code: 'ta', name: 'Tamil' },
-  { code: 'es', name: 'Spanish' },
-  { code: 'fr', name: 'French' }
+  { code: "en", name: "English" },
+  { code: "hi", name: "Hindi" },
+  { code: "bn", name: "Bengali" },
+  { code: "ta", name: "Tamil" },
+  { code: "es", name: "Spanish" },
+  { code: "fr", name: "French" },
 ];
 
-// GET supported languages
-app.get('/api/translate/langs', (req, res) => {
+// 🌍 Get supported langs
+router.get("/api/translate/langs", (req, res) => {
   res.json(SUPPORTED_LANGS);
 });
 
-// POST /api/translate { text, targetLang }
-app.post('/api/translate', async (req, res) => {
+// 🌍 Translate text
+router.post("/api/translate", async (req, res) => {
   try {
     const { text, targetLang } = req.body;
-    if (!text || !targetLang) return res.status(400).json({ error: 'text and targetLang required' });
+    if (!text || !targetLang) {
+      return res.status(400).json({ error: "text and targetLang required" });
+    }
 
     const cacheKey = `${text}::${targetLang}`;
     if (translationCache.has(cacheKey)) {
@@ -47,31 +48,27 @@ app.post('/api/translate', async (req, res) => {
     }
 
     let translatedText;
-
     if (USE_GOOGLE && googleTranslateClient) {
-      // Google Cloud Translate
       const [translation] = await googleTranslateClient.translate(text, targetLang);
       translatedText = translation;
     } else {
-      // Fallback: LibreTranslate public instance (good for demo)
-      // NOTE: LibreTranslate is rate-limited and sometimes offline; for production use Google Translate or another paid API.
-      const resp = await axios.post('https://libretranslate.de/translate', {
+      const resp = await axios.post("https://libretranslate.de/translate", {
         q: text,
-        source: 'auto',
+        source: "auto",
         target: targetLang,
-        format: 'text'
+        format: "text",
       }, {
-        headers: { 'accept': 'application/json' }
+        headers: { accept: "application/json" },
       });
       translatedText = resp.data.translatedText;
     }
 
-    // cache small results in-memory for demo
     translationCache.set(cacheKey, translatedText);
-
     res.json({ translatedText });
   } catch (err) {
-    console.error('Translation error:', err?.message || err);
-    res.status(500).json({ error: 'Translation failed', details: err?.message });
+    console.error("Translation error:", err?.message || err);
+    res.status(500).json({ error: "Translation failed", details: err?.message });
   }
 });
+
+module.exports = router;
