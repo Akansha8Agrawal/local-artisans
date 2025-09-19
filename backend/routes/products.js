@@ -1,15 +1,17 @@
-// backend/routes/products.js
-const express = require("express");
-const router = express.Router();
-const admin = require("../firebaseAdmin"); // ✅ import admin properly
-const verifyToken = require("../middleware/verifyToken");
+import express from "express";
+import admin from "../firebaseAdmin.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
+const router = express.Router();
 const db = admin.firestore();
 
-// GET /api/products  -> fetch all products
+// GET /api/products -> fetch all products
 router.get("/", async (req, res) => {
   try {
-    const snapshot = await db.collection("products").orderBy("createdAt", "desc").get();
+    const snapshot = await db
+      .collection("products")
+      .orderBy("createdAt", "desc")
+      .get();
 
     const products = snapshot.docs.map((doc) => ({
       id: doc.id,
@@ -23,7 +25,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST /api/products  -> add new product (protected)
+// POST /api/products -> add new product (protected)
 router.post("/", verifyToken, async (req, res) => {
   try {
     const { name, price, artisan } = req.body;
@@ -36,8 +38,8 @@ router.post("/", verifyToken, async (req, res) => {
       name,
       price,
       artisan,
-      userId: req.user.uid, // ✅ user who created it
-      createdAt: admin.firestore.FieldValue.serverTimestamp(), // ✅ correct timestamp
+      userId: req.user.uid, // user who created it
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
     res.status(201).json({ success: true, id: docRef.id });
@@ -47,4 +49,4 @@ router.post("/", verifyToken, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

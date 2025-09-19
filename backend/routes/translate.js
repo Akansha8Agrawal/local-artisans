@@ -1,6 +1,6 @@
-// backend/routes/translate.js
-const express = require("express");
-const axios = require("axios");
+import express from "express";
+import axios from "axios";
+
 const router = express.Router();
 
 const USE_GOOGLE = process.env.USE_GOOGLE_TRANSLATE === "true";
@@ -8,11 +8,14 @@ const USE_GOOGLE = process.env.USE_GOOGLE_TRANSLATE === "true";
 let googleTranslateClient = null;
 if (USE_GOOGLE) {
   try {
-    const { Translate } = require("@google-cloud/translate").v2;
+    const { Translate } = await import("@google-cloud/translate").then(m => m.v2);
     googleTranslateClient = new Translate();
     console.log("✅ Using Google Cloud Translate");
   } catch (e) {
-    console.warn("⚠️ Google Translate client init failed, falling back to LibreTranslate:", e.message);
+    console.warn(
+      "⚠️ Google Translate client init failed, falling back to LibreTranslate:",
+      e.message
+    );
   }
 }
 
@@ -45,7 +48,10 @@ router.post("/", async (req, res) => {
 
     const cacheKey = `${text}::${targetLang}`;
     if (translationCache.has(cacheKey)) {
-      return res.json({ translatedText: translationCache.get(cacheKey), cached: true });
+      return res.json({
+        translatedText: translationCache.get(cacheKey),
+        cached: true,
+      });
     }
 
     let translatedText;
@@ -75,4 +81,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
