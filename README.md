@@ -51,39 +51,7 @@ Humne banaya hai ek **AI-Powered Artisan Marketplace** jo artisans ko ek simple 
    ```bash
    git clone https://github.com/your-repo-link.git
    cd your-repo-link
-Backend Setup
 
-cd backend
-npm install
-node index.js
-
-
-🔑 Make sure firebase-key.json file is in backend/ folder.
-
-Frontend Setup
-
-cd frontend
-npm install
-npm start
-
-
-Open browser and visit:
-👉 http://localhost:3000
-
-👨‍💻 Team Members
-
-Aastha – Frontend Development + UI/UX
-
-Member 2 – Backend Development + Firebase Integration
-
-Member 3 – AI/ML Features (Gemini, Vertex AI)
-
-Member 4 – Deployment & DevOps
-
-🚀 With this project, we aim to bring local artisans closer to the global digital economy using the power of AI.
-
-
----
 
 👉 Yeh README judges ke liye **concise + professional** hoga, aur developers ke liye setup instructions bhi clear.  
 Chaho toh main tumhare project ke **screenshots / demo GIFs** ke liye ek extra section bhi add kar du?
