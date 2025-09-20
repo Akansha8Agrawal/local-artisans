@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 firebase-key.json
+=======
+node_modules/
+serviceAccountKey.json
+.env
+>>>>>>> afef4b95e756751136f860be3e5cbe299875fea1
