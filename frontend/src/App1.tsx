@@ -5,34 +5,38 @@ import HeroSection from './components/HeroSection';
 import WhyChooseUs from './components/WhyChooseUs';
 import ArtsSection from './components/ArtsSection';
 import Footer from './components/Footer';
+import ArtisansPage from './components/ArtisansPage';
+import AboutPage from './components/AboutPage';
+import ContactPage from './components/ContactPage';
 
 // A new component for the home page
 const HomePage = () => {
-  return (
-    <>
-      <HeroSection />
-      <WhyChooseUs />
-      <ArtsSection />
-    </>
-  );
+return (
+<>
+<HeroSection />
+<WhyChooseUs />
+<ArtsSection />
+</>
+);
 };
 
 // A new component for the Artisans page
-import ArtisansPage from './components/ArtisansPage';
 
 const App1 = () => {
-  return (
-    <BrowserRouter>
-      <div className="font-sans">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/artisans" element={<ArtisansPage />} />
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+return (
+<BrowserRouter>
+<div className="font-sans">
+<Navbar />
+<Routes>
+<Route path="/" element={<HomePage />} />
+<Route path="/artisans" element={<ArtisansPage />} />
+<Route path="/about" element={<AboutPage />} />
+<Route path="/contact" element={<ContactPage />} />
+</Routes>
+<Footer />
+</div>
+</BrowserRouter>
+);
 };
 
 export default App1;
