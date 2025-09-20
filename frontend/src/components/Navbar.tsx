@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <nav className="flex items-center justify-between p-6 px-12 text-black bg-[#fcf7f2]">
@@ -11,8 +11,8 @@ const Navbar = () => {
       
       {/* Navigation Links */}
       <ul className="flex space-x-8">
-        <li><a href="#" className="hover:text-gray-300">Home</a></li>
-        <li><a href="#" className="hover:text-gray-300">Artisans</a></li>
+        <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
+        <li><Link to="/artisans" className="hover:text-gray-300">Artisans</Link></li>
         <li><a href="#" className="hover:text-gray-300">Products</a></li>
         <li><a href="#" className="hover:text-gray-300">About</a></li>
         <li><a href="#" className="hover:text-gray-300">Blog</a></li>

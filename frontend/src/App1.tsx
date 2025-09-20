@@ -1,21 +1,37 @@
-// src/App.jsx
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import WhyChooseUs from './components/WhyChooseUs';
-import Footer from './components/Footer';
 import ArtsSection from './components/ArtsSection';
-import './index.css'; // Make sure you import your main CSS file
+import Footer from './components/Footer';
 
-const App1 = () => {
+// A new component for the home page
+const HomePage = () => {
   return (
-    <div className="min-h-screen bg-gray-900 font-sans">
-      <Navbar />
+    <>
       <HeroSection />
       <WhyChooseUs />
       <ArtsSection />
-      <Footer />
-    </div>
+    </>
+  );
+};
+
+// A new component for the Artisans page
+import ArtisansPage from './components/ArtisansPage';
+
+const App1 = () => {
+  return (
+    <BrowserRouter>
+      <div className="font-sans">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/artisans" element={<ArtisansPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 };
 
