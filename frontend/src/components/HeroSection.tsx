@@ -1,5 +1,6 @@
 // src/components/HeroSection.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import heroArtisansImg from './hero-artisans.jpeg';
 const HeroSection = () => {
   return (
@@ -35,12 +36,12 @@ const HeroSection = () => {
         
         {/* Call-to-Action Buttons */}
         <div className="mt-8 flex space-x-4">
-          <button className="bg-gradient-to-r from-orange-400 to-amber-600 hover:from-orange-500 hover:to-amber-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300">
-            Explore Crafts →
-          </button>
-          <button className="bg-white text-gray-800 font-semibold py-3 px-8 rounded-full border border-gray-300 hover:bg-gray-100 transition-all duration-300">
+          <Link to="/add-item" className="bg-gradient-to-r from-orange-400 to-amber-600 hover:from-orange-500 hover:to-amber-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300">
+            Get Started →
+          </Link>
+          <Link to="/artisans" className="bg-white text-gray-800 font-semibold py-3 px-8 rounded-full border border-gray-300 hover:bg-gray-100 transition-all duration-300">
             Meet Our Artisans
-          </button>
+          </Link>
         </div>
         
         {/* Stats Section */}

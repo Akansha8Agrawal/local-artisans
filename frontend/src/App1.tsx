@@ -11,6 +11,7 @@ import ContactPage from './components/ContactPage';
 import ChatPage from './components/ChatPage'; 
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
+import AddItemPage from './components/AddItemPage';
 
 // A new component for the home page
 const HomePage = () => {
@@ -38,6 +39,7 @@ return (
 <Route path="/chat" element={<ChatPage />} /> 
 <Route path="/login" element={<LoginPage />} />
 <Route path="/signup" element={<SignupPage />} />
+<Route path="/add-item" element={<AddItemPage />} />
 </Routes>
 <Footer />
 </div>
