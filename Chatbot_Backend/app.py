@@ -3,12 +3,7 @@ from pydantic import BaseModel
 from typing import Optional
 import os
 import google.generativeai as genai
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-# app = FastAPI()
-
-# Allow requests from React dev server
 
 # --- Configure Gemini API key from environment variable ---
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -18,7 +13,7 @@ if not GEMINI_API_KEY:
 genai.configure(api_key=GEMINI_API_KEY)
 
 # --- Initialize Gemini model ---
-MODEL_NAME = "models/gemini-1.5-flash"  # or any model you want
+MODEL_NAME = "models/gemini-1.5-flash"
 model = genai.GenerativeModel(MODEL_NAME)
 
 # --- FastAPI app ---
@@ -35,10 +30,24 @@ app.add_middleware(
 class MessageRequest(BaseModel):
     message: str
     action: Optional[str] = "general_chat"
-    language: Optional[str] = "en"  # default English, can also be 'hi' for Hindi
+    language: Optional[str] = "en"  # default English
+
 
 class MessageResponse(BaseModel):
     reply: str
+
+
+# --- Language mapping (only the ones in ChatInterface.tsx) ---
+LANGUAGE_MAP = {
+    "en": "Respond in English.",
+    "hi": "Respond in Hindi.",
+    "bn": "Respond in Bengali.",
+    "ta": "Respond in Tamil.",
+    "te": "Respond in Telugu.",
+    "mr": "Respond in Marathi.",
+    "gu": "Respond in Gujarati.",
+}
+
 
 # --- Helper to call Gemini ---
 def gemini_generate_text(prompt: str, max_tokens: int = 500) -> str:
@@ -50,19 +59,16 @@ def gemini_generate_text(prompt: str, max_tokens: int = 500) -> str:
     except Exception as e:
         return f"Error contacting Gemini API: {e}"
 
+
 # --- Chat endpoint ---
-@app.post("/chat", response_model=MessageResponse)
 @app.post("/chat", response_model=MessageResponse)
 def chat(req: MessageRequest):
     user_message = req.message
     action = req.action
     language = req.language or "en"
 
-    # Add language to prompt
-    if language == "hi":
-        lang_text = "Respond in Hindi."
-    else:
-        lang_text = "Respond in English."
+    # Pick language instruction (default English if not found)
+    lang_text = LANGUAGE_MAP.get(language, LANGUAGE_MAP["en"])
 
     if action == "generate_story":
         prompt = f"""
