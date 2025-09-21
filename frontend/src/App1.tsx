@@ -9,6 +9,8 @@ import ArtisansPage from './components/ArtisansPage';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
 import ChatPage from './components/ChatPage'; 
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 
 // A new component for the home page
 const HomePage = () => {
@@ -34,6 +36,8 @@ return (
 <Route path="/about" element={<AboutPage />} />
 <Route path="/contact" element={<ContactPage />} />
 <Route path="/chat" element={<ChatPage />} /> 
+<Route path="/login" element={<LoginPage />} />
+<Route path="/signup" element={<SignupPage />} />
 </Routes>
 <Footer />
 </div>

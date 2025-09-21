@@ -12,6 +12,12 @@ const Navbar = () => {
                 <li><Link to="/chat" className="hover:text-gray-300">AI Assistant</Link></li>
                 <li><Link to="/contact" className="hover:text-gray-300">Contact</Link></li>
             </ul>
+            <div className="flex items-center space-x-4">
+              <Link to="/login" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">Login</Link>
+              <Link to="/signup" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">
+                Sign Up
+              </Link>
+            </div>
             <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">
                 Join Our Community
             </button>
