@@ -48,9 +48,9 @@ Humne banaya hai ek **AI-Powered Artisan Marketplace** jo artisans ko ek simple 
 ## ⚙️ How to Run Locally  
 
 1. **Clone Repository**  
-   ```bash
-   git clone https://github.com/your-repo-link.git
-   cd your-repo-link
+   git clone https://github.com/Akansha8Agrawal/local-artisans.git
+cd local-artisans
+
 
 
 👉 Yeh README judges ke liye **concise + professional** hoga, aur developers ke liye setup instructions bhi clear.  
