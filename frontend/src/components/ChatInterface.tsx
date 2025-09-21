@@ -13,13 +13,16 @@ type ActionType =
   | "market_trends"
   | "calculate_pricing";
 
+// Add more supported languages here
+type LanguageCode = "en" | "hi" | "bn" | "ta" | "te" | "mr" | "gu";
+
 const ChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([
     { text: "Hello! I'm your AI Artisan Assistant! I can help with product stories, marketing, trends, and pricing.", sender: 'bot' }
   ]);
   const [input, setInput] = useState<string>('');
   const [currentAction, setCurrentAction] = useState<ActionType>("general_chat");
-  const [language, setLanguage] = useState<"en" | "hi">("en");
+  const [language, setLanguage] = useState<LanguageCode>("en");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -82,64 +85,68 @@ const ChatInterface = () => {
         <div ref={messagesEndRef} />
       </div>
 
-    {/* Action buttons */}
-    <div className="p-4 border-t border-gray-200 grid grid-cols-2 gap-2 mb-2">
-      <button
-        onClick={() => setCurrentAction("generate_story")}
-        className={`rounded-full p-2 transition-colors ${
-          currentAction === "generate_story"
-            ? "bg-green-500 text-white" // active color
-            : "bg-orange-500 text-white hover:bg-orange-600" // default color
-        }`}
-      >
-        ✍️ Product Story
-      </button>
+      {/* Action buttons */}
+      <div className="p-4 border-t border-gray-200 grid grid-cols-2 gap-2 mb-2">
+        <button
+          onClick={() => setCurrentAction("generate_story")}
+          className={`rounded-full p-2 transition-colors ${
+            currentAction === "generate_story"
+              ? "bg-green-500 text-white"
+              : "bg-orange-500 text-white hover:bg-orange-600"
+          }`}
+        >
+          ✍️ Product Story
+        </button>
 
-      <button
-        onClick={() => setCurrentAction("marketing_content")}
-        className={`rounded-full p-2 transition-colors ${
-          currentAction === "marketing_content"
-            ? "bg-green-500 text-white"
-            : "bg-orange-500 text-white hover:bg-orange-600"
-        }`}
-      >
-        📣 Marketing Content
-      </button>
+        <button
+          onClick={() => setCurrentAction("marketing_content")}
+          className={`rounded-full p-2 transition-colors ${
+            currentAction === "marketing_content"
+              ? "bg-green-500 text-white"
+              : "bg-orange-500 text-white hover:bg-orange-600"
+          }`}
+        >
+          📣 Marketing Content
+        </button>
 
-      <button
-        onClick={() => setCurrentAction("market_trends")}
-        className={`rounded-full p-2 transition-colors ${
-          currentAction === "market_trends"
-            ? "bg-green-500 text-white"
-            : "bg-orange-500 text-white hover:bg-orange-600"
-        }`}
-      >
-        📈 Market Trends
-      </button>
+        <button
+          onClick={() => setCurrentAction("market_trends")}
+          className={`rounded-full p-2 transition-colors ${
+            currentAction === "market_trends"
+              ? "bg-green-500 text-white"
+              : "bg-orange-500 text-white hover:bg-orange-600"
+          }`}
+        >
+          📈 Market Trends
+        </button>
 
-      <button
-        onClick={() => setCurrentAction("calculate_pricing")}
-        className={`rounded-full p-2 transition-colors ${
-          currentAction === "calculate_pricing"
-            ? "bg-green-500 text-white"
-            : "bg-orange-500 text-white hover:bg-orange-600"
-        }`}
-      >
-        💰 Pricing
-      </button>
-    </div>
-
+        <button
+          onClick={() => setCurrentAction("calculate_pricing")}
+          className={`rounded-full p-2 transition-colors ${
+            currentAction === "calculate_pricing"
+              ? "bg-green-500 text-white"
+              : "bg-orange-500 text-white hover:bg-orange-600"
+          }`}
+        >
+          💰 Pricing
+        </button>
+      </div>
 
       {/* Language selector */}
       <div className="flex gap-2 p-4 border-t border-gray-200 items-center">
         <label className="text-gray-700 font-medium">Language:</label>
         <select
           value={language}
-          onChange={(e) => setLanguage(e.target.value as "en" | "hi")}
+          onChange={(e) => setLanguage(e.target.value as LanguageCode)}
           className="border border-gray-300 rounded p-1 focus:outline-none"
         >
           <option value="en">English</option>
           <option value="hi">Hindi</option>
+          <option value="bn">Bengali</option>
+          <option value="ta">Tamil</option>
+          <option value="te">Telugu</option>
+          <option value="mr">Marathi</option>
+          <option value="gu">Gujarati</option>
         </select>
       </div>
 
