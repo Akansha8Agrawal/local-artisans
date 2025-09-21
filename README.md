@@ -1,39 +1,36 @@
-# 🎨 AI-Powered Artisan Marketplace  
-**Empowering Local Artisans with Generative AI**
+ ## IndianRoots.ai 
+Empowering Local Artisans with Generative AI
 
 ---
 
-## 📺 Demo Video  
-👉 [Watch the Demo on YouTube](https://youtu.be/your-demo-video-link)  
+## Click here for a demonstration video 
+ [Watch the Demo on YouTube](https://youtu.be/your-demo-video-link)  
 
 ---
 
-## ✨ Problem & Solution  
+##  Problem & Solution  
 
 **Problem:**  
-India ke local artisans ko apne handcrafted products bechne mein kai challenges hote hain — online marketing ki kami, language barrier, aur technology ka gap. Is wajah se unke products global audience tak nahi pahunch paate.  
+Indian artisans and craftsmen, rich in traditional skills and cultural heritage, often face significant challenges in the modern digital marketplace. A lack of digital marketing skills, limited resources, and the difficulty of bridging traditional craftsmanship with contemporary consumer trends severely restrict their market reach and profitability. This creates a disconnect between valuable, traditional art forms and a wider, digitally-native audience, threatening the sustainability of these crafts .
 
 **Solution:**  
-Humne banaya hai ek **AI-Powered Artisan Marketplace** jo artisans ko ek simple aur intuitive platform deta hai jahan wo:  
-- Apne products list kar sakte hain  
-- Apni kahaniyan (stories) share kar sakte hain  
-- AI tools ki madad se product photos enhance, pricing optimize aur marketing material generate kar sakte hain  
+ IndianRoots.ai is a creative solution leveraging Google Cloud's generative AI to empower local artisans by enhancing their digital presence,improve their marketing and sales strategies, and help them effectively tell the story of their craft.
 
 ---
 
-## 🔥 Key Features  
+##  Key Features  
 
-- 🎙️ **Voice-to-Story Generation** (Gemini API se artisans apni kahani bol kar likhit story bana sakte hain)  
-- 📸 **AI Photo Enhancement** (Vertex AI Vision se product photos aur attractive bante hain)  
-- 🌍 **Multilingual Voice Narration** (Translation + TTS se kahaniyan alag-alag bhashao me sunayi ja sakti hain)  
-- 📈 **AI Marketing & Pricing Assistant** (Gemini + MCP Toolbox artisans ko suggest karta hai ki product ka kya price aur kaunsa caption best hoga)  
-- 🔑 **Secure Login with Firebase** (Email/Password + Google login support)  
-- 🛍️ **Products Listing** (Easy add/view interface)  
-- 📖 **Artisan Stories** (Global audience ke liye storytelling feature)  
+- 🎙️ **Voice-to-Story Generation** With the Gemini API, artisans can narrate their stories verbally, and it will be converted into a written story.
+- 📸 **AI Photo Enhancement** With Vertex AI Vision, product photos become more enhanced and attractive
+- 🌍 **Multilingual Voice Narration** With Translation and Text to speech, stories can be narrated in different languages .
+- 📈 **AI Marketing & Pricing Assistant** Gemini + MCP Toolbox help artisans in predicting price 
+- 🔑 **Secure Login with Firebase** Email/Password + Google login support  
+- 🛍️ **Products Listing** Easy add/view interface  
+- 📖 **Artisan Stories** Storytelling feature for global audience
 
 ---
 
-## 🛠️ Tech Stack  
+##  Tech Stack  
 
 | Layer       | Technologies |
 |-------------|--------------|
@@ -45,15 +42,12 @@ Humne banaya hai ek **AI-Powered Artisan Marketplace** jo artisans ko ek simple 
 
 ---
 
-## ⚙️ How to Run Locally  
+##  How to Run Locally  
 
 1. **Clone Repository**  
    git clone https://github.com/Akansha8Agrawal/local-artisans.git
 cd local-artisans
 
 
-
-👉 Yeh README judges ke liye **concise + professional** hoga, aur developers ke liye setup instructions bhi clear.  
-Chaho toh main tumhare project ke **screenshots / demo GIFs** ke liye ek extra section bhi add kar du?
 
                 
