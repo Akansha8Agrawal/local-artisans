@@ -49,5 +49,129 @@ Indian artisans and craftsmen, rich in traditional skills and cultural heritage,
 cd local-artisans
 
 
+## IndianRoots.ai – Frontend
+
+This folder contains the React + Tailwind CSS frontend for IndianRoots.ai, the platform empowering Indian artisans with Generative AI.
+
+## Features
+
+ Modern UI built with React + Tailwind CSS
+
+ Firebase Authentication (Email/Password + Google login)
+
+ Product listing interface (Add/View products)
+
+ Artisan storytelling feature (display written + narrated stories)
+
+ Multilingual support (integrated with backend services)
+
+ ## Tech Stack
+
+React (UI framework)
+
+Tailwind CSS (styling)
+
+Firebase Auth (login & signup)
+
+Axios (API calls to backend)
+
+React Router (navigation)
+
+## Setup Instructions
+
+Navigate to frontend folder
+
+cd frontend
+
+
+Install dependencies
+
+npm install
+
+
+Create .env file
+Add Firebase + API config values:
+
+REACT_APP_API_URL=http://localhost:5000/api
+REACT_APP_FIREBASE_API_KEY=your_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+
+
+Run development server
+
+npm start
+
+
+Frontend will run on http://localhost:3000
+ by default.
+
+
+## IndianRoots.ai – Backend
+
+This folder contains the Node.js + Express.js backend for IndianRoots.ai, handling APIs, authentication, and AI integrations.
+
+## Features
+
+ RESTful APIs for frontend
+
+ Authentication with Firebase Admin SDK
+
+ Voice-to-Story (Gemini API)
+
+ Photo enhancement (Vertex AI Vision)
+
+Translation + Text-to-Speech (Google Cloud APIs)
+
+ AI-powered pricing suggestions (Gemini + MCP Toolbox)
+
+## Tech Stack
+
+Node.js (runtime)
+
+Express.js (backend framework)
+
+Firebase Admin SDK (user management)
+
+Google Cloud APIs (Gemini, Vertex AI, Translation, TTS)
+
+MCP Toolbox (AI pricing & marketing assistant)
+
+## Setup Instructions
+
+Navigate to backend folder
+
+cd backend
+
+
+Install dependencies
+
+npm install
+
+
+Create .env file
+Add credentials:
+
+PORT=5000
+FIREBASE_PROJECT_ID=your_project_id
+FIREBASE_CLIENT_EMAIL=your_firebase_client_email
+FIREBASE_PRIVATE_KEY=your_firebase_private_key
+
+GOOGLE_API_KEY=your_google_api_key
+GEMINI_API_KEY=your_gemini_api_key
+
+
+Run backend server
+
+npm run dev
+
+
+Backend will run on http://localhost:5000
+.
+
+
 
                 
