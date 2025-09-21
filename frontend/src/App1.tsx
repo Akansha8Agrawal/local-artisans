@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import ArtisansPage from './components/ArtisansPage';
 import AboutPage from './components/AboutPage';
 import ContactPage from './components/ContactPage';
+import ChatPage from './components/ChatPage'; 
 
 // A new component for the home page
 const HomePage = () => {
@@ -32,6 +33,7 @@ return (
 <Route path="/artisans" element={<ArtisansPage />} />
 <Route path="/about" element={<AboutPage />} />
 <Route path="/contact" element={<ContactPage />} />
+<Route path="/chat" element={<ChatPage />} /> 
 </Routes>
 <Footer />
 </div>
