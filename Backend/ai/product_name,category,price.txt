@@ -1,0 +1,6 @@
+product_name,category,price
+Handwoven Shawl,Shawl,1200
+Silk Scarf,Scarf,1500
+Pottery Vase,Vase,800
+Bamboo Basket,Basket,600
+Leather Bag,Bag,1800
