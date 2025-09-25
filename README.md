@@ -4,7 +4,7 @@ Empowering Local Artisans with Generative AI
 ---
 
 ## Click here for a demonstration video 
- [Watch the Demo on YouTube](https://youtu.be/your-demo-video-link)  
+ [Watch the Demo on YouTube](https://youtu.be/JtdvRQnOKx8)  
 
 ---
 
