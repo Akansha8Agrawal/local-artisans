@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { postProductWithAuth } from "../apiHelpers";
+
 
 const AddItemPage = () => {
   const [itemName, setItemName] = useState('');

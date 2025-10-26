@@ -1,25 +1,27 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Local Artisans backend with Firebase, Express, and translation APIs",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Aastha",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/translate": "^9.2.0",
-    "body-parser": "^2.2.0",
+    "axios": "^1.7.2",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.2",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
-<<<<<<< HEAD
-    "firebase-admin": "^13.5.0"
-=======
     "firebase-admin": "^13.5.0",
+    "mongoose": "^8.19.2",
     "multer": "^2.0.2"
->>>>>>> afef4b95e756751136f860be3e5cbe299875fea1
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
