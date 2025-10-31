@@ -8,6 +8,8 @@ import productsRoutes from "./routes/products.js";
 import storiesRoutes from "./routes/stories.js";
 import translateRoutes from "./routes/translate.js";
 import authRoutes from "./routes/auth.js";
+import imageRoutes from "./routes/imageroute.js";
+
 
 
 dotenv.config();
@@ -28,6 +30,8 @@ app.use("/api/products", productsRoutes);
 app.use("/api/stories", storiesRoutes);
 app.use("/api/translate", translateRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/image", imageRoutes);
+
 
 
 // 🚀 Start Server
